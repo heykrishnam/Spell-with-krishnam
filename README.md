@@ -47,6 +47,3 @@ Now open [http://localhost:3000](http://localhost:3000) in your browser.
 
 This project serves as a practical demonstration of how **Automata Theory** and **Compiler Construction** techniques can be applied to Natural Language Processing (NLP) challenges. It provides a modular framework for language diagnostic tools, where grammar rules and lexing patterns can be extended independently of the user interface.
 
----
-
-Built with ❤️ for Computer Science & Linguistics.
