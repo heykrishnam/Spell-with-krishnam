@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Spell with Krishnam — English spelling and grammar checker using compiler-based lexical analysis and parsing techniques.">
+  <title>Spell with Krishnam — Compiler-Based Checker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="bg-animation">
+    <div class="bg-orb bg-orb-1"></div>
+    <div class="bg-orb bg-orb-2"></div>
+    <div class="bg-orb bg-orb-3"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <path d="M16 2L28 8V24L16 30L4 24V8L16 2Z" stroke="url(#grad1)" stroke-width="2" fill="none"/>
+            <path d="M16 6L24 10V22L16 26L8 22V10L16 6Z" fill="url(#grad2)" opacity="0.3"/>
+            <text x="16" y="20" text-anchor="middle" fill="url(#grad1)" font-size="12" font-weight="bold" font-family="Inter">S</text>
+            <defs>
+              <linearGradient id="grad1" x1="0" y1="0" x2="32" y2="32">
+                <stop offset="0%" stop-color="#818cf8"/>
+                <stop offset="100%" stop-color="#c084fc"/>
+              </linearGradient>
+              <linearGradient id="grad2" x1="0" y1="0" x2="32" y2="32">
+                <stop offset="0%" stop-color="#818cf8"/>
+                <stop offset="100%" stop-color="#c084fc"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <h1 class="logo-text">Spell with <span class="logo-accent">Krishnam</span></h1>
+      </div>
+      <p class="tagline">Compiler-Based Spelling & Grammar Engine</p>
+      <div class="header-status" id="headerStatus">
+        <span class="status-dot"></span>
+        <span class="status-text">Engine Ready</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content" id="mainContent">
+    
+    <!-- Pipeline Visualization -->
+    <section class="pipeline-section" id="pipelineSection">
+      <h2 class="section-title">Compiler Pipeline</h2>
+      <div class="pipeline">
+        <div class="pipeline-step" data-phase="0">
+          <div class="pipeline-icon">📝</div>
+          <div class="pipeline-label">Input</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step" data-phase="1">
+          <div class="pipeline-icon">⚙️</div>
+          <div class="pipeline-label">Lexer</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step" data-phase="2">
+          <div class="pipeline-icon">📖</div>
+          <div class="pipeline-label">Spell Check</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step" data-phase="3">
+          <div class="pipeline-icon">🔍</div>
+          <div class="pipeline-label">Parser</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step" data-phase="4">
+          <div class="pipeline-icon">✅</div>
+          <div class="pipeline-label">Output</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Input Section -->
+    <section class="input-section" id="inputSection">
+      <div class="card glass-card">
+        <div class="card-header">
+          <h2 class="card-title">
+            <span class="card-icon">📝</span>
+            Input Text
+          </h2>
+          <div class="input-controls">
+            <div class="char-count" id="charCount">0 characters · 0 words</div>
+          </div>
+        </div>
+        <div class="textarea-wrapper">
+          <textarea 
+            id="inputText" 
+            class="text-input" 
+            placeholder="Type or paste your English text here for analysis...&#10;&#10;Example: &quot;He go to the the school yestarday. A apple was on a table.&quot;"
+            spellcheck="false"
+          ></textarea>
+        </div>
+        
+        <!-- File Upload -->
+        <div class="upload-zone" id="uploadZone">
+          <div class="upload-content">
+            <div class="upload-icon">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <path d="M24 4L32 14H26V28H22V14H16L24 4Z" fill="currentColor" opacity="0.7"/>
+                <path d="M8 32V40C8 41.1 8.9 42 10 42H38C39.1 42 40 41.1 40 40V32" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <p class="upload-text">Drag & drop a <strong>.txt</strong> file here or <span class="upload-browse">browse</span></p>
+            <p class="upload-hint">Maximum file size: 5MB</p>
+          </div>
+          <input type="file" id="fileInput" accept=".txt,.text,.md" hidden>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-bar">
+          <button class="btn btn-secondary" id="clearBtn" title="Clear all">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M5.5 5.5A.5.5 0 016 6v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm2.5 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm3 .5a.5.5 0 00-1 0v6a.5.5 0 001 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 01-1 1H13v9a2 2 0 01-2 2H5a2 2 0 01-2-2V4h-.5a1 1 0 01-1-1V2a1 1 0 011-1H6a1 1 0 011-1h2a1 1 0 011 1h3.5a1 1 0 011 1v1zM4.118 4L4 4.059V13a1 1 0 001 1h6a1 1 0 001-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg>
+            Clear
+          </button>
+          <button class="btn btn-secondary" id="sampleBtn" title="Load sample text">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M14 1a1 1 0 011 1v12a1 1 0 01-1 1H2a1 1 0 01-1-1V2a1 1 0 011-1h12zM2 0a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2H2z"/><path d="M3 3.5a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9a.5.5 0 01-.5-.5zM3 6a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9A.5.5 0 013 6zm0 2.5a.5.5 0 01.5-.5h6a.5.5 0 010 1h-6a.5.5 0 01-.5-.5z"/></svg>
+            Sample
+          </button>
+          <button class="btn btn-primary" id="analyzeBtn" title="Analyze text">
+            <span class="btn-text">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M11.534 7h3.932a.25.25 0 01.192.41l-1.966 2.36a.25.25 0 01-.384 0l-1.966-2.36a.25.25 0 01.192-.41zm-11 2h3.932a.25.25 0 00.192-.41L2.692 6.23a.25.25 0 00-.384 0L.342 8.59A.25.25 0 00.534 9z"/><path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 11-.771-.636A6.002 6.002 0 0113.917 7H12.9A5.002 5.002 0 008 3zM3.1 9a5.002 5.002 0 008.757 2.182.5.5 0 11.771.636A6.002 6.002 0 012.083 9H3.1z"/></svg>
+              Analyze Text
+            </span>
+            <span class="btn-loading" style="display:none">
+              <div class="spinner"></div>
+              Processing...
+            </span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results Section (hidden initially) -->
+    <section class="results-section" id="resultsSection" style="display:none">
+      
+      <!-- Stats Dashboard -->
+      <div class="stats-grid" id="statsGrid">
+        <div class="stat-card glass-card">
+          <div class="stat-icon stat-icon-words">📊</div>
+          <div class="stat-value" id="statWords">0</div>
+          <div class="stat-label">Total Words</div>
+        </div>
+        <div class="stat-card glass-card">
+          <div class="stat-icon stat-icon-spelling">🔴</div>
+          <div class="stat-value" id="statSpelling">0</div>
+          <div class="stat-label">Spelling Errors</div>
+        </div>
+        <div class="stat-card glass-card">
+          <div class="stat-icon stat-icon-grammar">🟠</div>
+          <div class="stat-value" id="statGrammar">0</div>
+          <div class="stat-label">Grammar Issues</div>
+        </div>
+        <div class="stat-card glass-card">
+          <div class="stat-icon stat-icon-accuracy">✨</div>
+          <div class="stat-value" id="statAccuracy">100%</div>
+          <div class="stat-label">Accuracy Score</div>
+        </div>
+        <div class="stat-card glass-card">
+          <div class="stat-icon stat-icon-time">⚡</div>
+          <div class="stat-value" id="statTime">0ms</div>
+          <div class="stat-label">Processing Time</div>
+        </div>
+      </div>
+
+      <!-- Corrected Text -->
+      <div class="card glass-card" id="correctedCard">
+        <div class="card-header">
+          <h2 class="card-title">
+            <span class="card-icon">✅</span>
+            Corrected Output
+          </h2>
+          <button class="btn btn-small btn-copy" id="copyBtn" title="Copy corrected text">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M4 1.5H3a2 2 0 00-2 2V14a2 2 0 002 2h10a2 2 0 002-2V3.5a2 2 0 00-2-2h-1v1h1a1 1 0 011 1V14a1 1 0 01-1 1H3a1 1 0 01-1-1V3.5a1 1 0 011-1h1v-1z"/><path d="M9.5 1a.5.5 0 01.5.5v1a.5.5 0 01-.5.5h-3a.5.5 0 01-.5-.5v-1a.5.5 0 01.5-.5h3zm-3-1A1.5 1.5 0 005 1.5v1A1.5 1.5 0 006.5 4h3A1.5 1.5 0 0011 2.5v-1A1.5 1.5 0 009.5 0h-3z"/></svg>
+            Copy
+          </button>
+        </div>
+        <div class="corrected-text" id="correctedText"></div>
+      </div>
+
+      <!-- Errors List -->
+      <div class="card glass-card" id="errorsCard">
+        <div class="card-header">
+          <h2 class="card-title">
+            <span class="card-icon">🐛</span>
+            Error Report
+          </h2>
+          <div class="error-filters">
+            <button class="filter-btn active" data-filter="all" id="filterAll">All</button>
+            <button class="filter-btn" data-filter="SPELLING" id="filterSpelling">Spelling</button>
+            <button class="filter-btn" data-filter="GRAMMAR" id="filterGrammar">Grammar</button>
+          </div>
+        </div>
+        <div class="errors-list" id="errorsList"></div>
+      </div>
+
+      <!-- Token Stream Visualization -->
+      <div class="card glass-card" id="tokensCard">
+        <div class="card-header">
+          <h2 class="card-title">
+            <span class="card-icon">⚙️</span>
+            Token Stream <span class="badge">Compiler Internals</span>
+          </h2>
+          <button class="btn btn-small btn-toggle" id="toggleTokens">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 01.708 0L8 10.293l5.646-5.647a.5.5 0 01.708.708l-6 6a.5.5 0 01-.708 0l-6-6a.5.5 0 010-.708z"/></svg>
+            Toggle
+          </button>
+        </div>
+        <div class="token-stream" id="tokenStream"></div>
+      </div>
+
+      <!-- Compiler Phases -->
+      <div class="card glass-card" id="phasesCard">
+        <div class="card-header">
+          <h2 class="card-title">
+            <span class="card-icon">🔄</span>
+            Compilation Phases
+          </h2>
+        </div>
+        <div class="phases-list" id="phasesList"></div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Spell with Krishnam &copy; 2026 — Built with Compiler Design Principles</p>
+    <p class="footer-sub">Lexical Analysis · Spell Validation · Grammar Parsing</p>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
